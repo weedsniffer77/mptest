@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactical Shooter</title>
+    <link rel="icon" href="data:,">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Teko:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ui/style.css">
+</head>
+<body>
+    <canvas id="game-canvas"></canvas>
+    
+    <!-- Physics Engine -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+    
+    <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+    
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+    </script>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+        import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+        import { Lensflare, LensflareElement } from 'three/addons/objects/Lensflare.js';
+        
+        window.THREE = THREE;
+        window.EffectComposer = EffectComposer;
+        window.RenderPass = RenderPass;
+        window.ShaderPass = ShaderPass;
+        window.UnrealBloomPass = UnrealBloomPass;
+        window.OutputPass = OutputPass;
+        window.Lensflare = Lensflare;
+        window.LensflareElement = LensflareElement;
+        
+        console.log('✓ THREE.js r170 loaded');
+        
+        // Trigger Game Init only after THREE is ready
+        if (window.TacticalShooter && window.TacticalShooter.GameManager) {
+            window.TacticalShooter.GameManager.init();
+        } else {
+            window.THREE_READY = true;
+        }
+    </script>
+    
+    <script>
+        window.TacticalShooter = {
+            config: {
+                debug: false,
+                showNametags: true
+            }
+        };
+    </script>
+    
+    <!-- === GAME MODULES === -->
+    
+    <!-- UI (Templates) -->
+    <script src="ui/ui_elements.js"></script>
+    
+    <!-- Core Systems -->
+    <script src="core/input_manager.js"></script>
+    <script src="core/ui_manager.js"></script>
+    
+    <!-- Data & Loadouts -->
+    <script src="data/game_data.js"></script>
+    <!-- WEAPONS -->
+    <script src="data/weapons/pistol/pistol_attributes.js"></script>
+    <script src="data/weapons/pistol/pistol_model.js"></script>
+    <script src="data/weapons/pistol/pistol_animations.js"></script> 
+    <!-- PLAYER MODEL -->
+    <script src="data/player/player_model.js"></script>
+    
+    <script src="core/loadout_manager.js"></script>
+    
+    <!-- Gamemode Logic (NEW) -->
+    <script src="gamemodes/team_manager.js"></script>
+    <script src="gamemodes/match_state.js"></script>
+
+    <!-- Visual Config -->
+    <script src="visuals/vfx_config.js"></script>
+    
+    <!-- Player Logic -->
+    <script src="player/player_state.js"></script>
+    <script src="player/physics_controller.js"></script> 
+    <script src="player/character_controller.js"></script>
+    <script src="player/player_camera.js"></script>
+    
+    <!-- Render Systems -->
+    <script src="render/material_library.js"></script>
+    <script src="render/shader/shadow_manager.js"></script>
+    <script src="render/shader/raytracer.js"></script>
+    <script src="render/shader/sky_renderer.js"></script>
+    <script src="render/shader/post_processor.js"></script>
+    
+    <!-- Visual Systems -->
+    <script src="visuals/particle_manager.js"></script>
+    <script src="visuals/ragdoll_manager.js"></script>
+    
+    <!-- Weapons -->
+    <script src="weapons/ballistics.js"></script>
+    <script src="render/gun_renderer.js"></script>
+    <script src="weapons/weapon_manager.js"></script>
+
+    <!-- UI: Prematch & Tactical (NEW) -->
+    <script src="ui/tactical_map/tactical_camera.js"></script>
+    <script src="ui/prematch/lobby_settings.js"></script>
+    <script src="ui/prematch/team_selector.js"></script>
+    <script src="ui/prematch/launch_control.js"></script>
+    <script src="ui/prematch/lobby_ui.js"></script>
+
+    <!-- Multiplayer Architecture -->
+    <script src="multiplayer/network_state.js"></script>
+    <script src="multiplayer/remote_player_animator.js"></script> 
+    <script src="multiplayer/remote_player_manager.js"></script>
+    <script src="multiplayer/multiplayer_ui.js"></script>
+    <script src="multiplayer/playroom_manager.js"></script>
+    
+    <!-- Map Data -->
+    <script src="data/map_assets.js"></script>
+    <script src="data/maps/testing/lighting.js"></script>
+    <script src="data/maps/testing/game_config.js"></script>
+    <script src="data/maps/testing/map.js"></script>
+    
+    <!-- Game Manager -->
+    <script src="core/game_manager.js"></script>
+</body>
+</html>
